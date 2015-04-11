@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<html>
+<head>
+  <title>Dunphy</title>
+  <script src="js/vendor/jquery.js"></script>
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,300italic,400,100' rel='stylesheet' type='text/css'>
+  <link rel="shortcut icon" href="<?php echo asset('img/icon.ico');?>">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+  <script type='text/javascript' src='js/handlebars.js' ></script>
+  <script src="js/foundation.min.js"></script>
+  <script src="js/foundation/foundation.slider.js"></script>
+  <script src="js/circles.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  <link media="all" type="text/css" rel="stylesheet" href="css/foundation.css">
+  <link media="all" type="text/css" rel="stylesheet" href="css/custom.css">
+</head>
+
+
+<body>
+  <div class='large'></div>
+  <div class="sticky">
+    <nav class="top-bar sticky" data-topbar role="navigation" data-options=>
+      <ul class="title-area">
+        <li class="name">
+          <h1>
+            <a href="/">
+              <img src="img/d.png" style="width:30px;height:30px;margin-top:-2px;display:inline-block" />
+              <span style='color:#51264a !important;margin-top:50px;font-weight:700'>SmartZone</span>
+            </a>
+          </h1>
+        </li>
+        <li class="toggle-topbar notification-menu-item notificaition-mobile"></li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+      </ul>
+
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+
+        <ul class="right">
+          <li><a href="#" data-reveal-id="myModal" id='settingsbutton'><img src="img/gear.png" style="width:20px;height:20px;margin-top:-10px;display:inline-block" /></a></li>
+        </ul>
+
+        <!--<li class="notification-menu-item hide-for-small">
+      </li>-->
+
+    </section>
+  </nav>
+</div>
+
+
+<div class='content row' id='content' style='background:#fff;min-height:600px;'>
+  <div class='row'>
+  </div>
+</div>
+
+<div id="main-modal" class="reveal-modal" data-reveal>
+</div>
+
+<div id="settings-modal" class="reveal-modal tiny" data-reveal>
+</div>
+
+</body>
+</html>
+
+
+<script id="person-details-template" type="text/x-handlebars-template">
+  <div class="columns large-12">
+
+    <h2>{{person_name}}</h2>
+    <h5> Suggested Premium: $150 - $200 </h5>
+    <div class='row'>
+      <div class='columns large-4'>
+        <ul class="magiclist">
+          {{#each person_houses}}
+          <li data-id=1><a href="#" class='magicThing'>{{name}}</a></li>
+          <!-- <li> something </li> -->
+          {{/each}}
+        </ul>
+      </div>
+      <div class='columns large-8 sidebarDetail'>
+        <div class ='row'>
+          <div class = 'columns large-12'>
+            {{selected_house.name}} <br>
+            {{selected_house.package}} ${{selected_house.premium}} m.o.<br>
+          </div>
+        </div>
+
+      <div class='row'>
+          <div class='columns large-5'>
+            <table style="display:block;text-align:center">
+              {{#each selected_house.score}}
+              <tr>
+                <td>{{label}}:</td>
+                <td>{{values.0.value}} {{unit}}</td>
+              </tr>
+              {{/each}}
+            </table>
+            <a href='#' class='more-info' data-id='{{house_id}}' style='display:block;text-align:center;margin:auto'>more</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</script>
+
+<script id="settings-template" type="text/x-handlebars-template">
+  <h2>Settings</h2>
+  <p class="lead">Slide to set the importance of each other.</p>
+  <form>
+    {{#each setting}}
+    <label id="sliderLabel">{{label}}</label>
+    <div class="range-slider {{label}}" data-slider>
+      <span class="range-slider-handle" role="slider" tabindex="0" aria-labelledby="sliderLabel"></span>
+      <span class="range-slider-active-segment"></span>
+      <input type="hidden" name={{label}}>
+    </div>
+    {{/each}}
+    <button class='settings-submit'>Save</button>
+    <button class='settings-submit'>Cancel</button>
+    <div class='columns' />
+  </script>
+
+  <script id="box-template" type="text/x-handlebars-template">
+
+    {{#each house}}
+    <div class='large-2half box columns'>
+      <span style="display:block;text-align:center">{{name}}</span>
+      <span style="display:block;text-align:center;font-size:0.8em">{{package}} ${{premium}} m.o.</span>
+      <div class="circle" id="circles-{{house_id}}" style="margin-top:20px"></div>
+
+      <table style="display:block;text-align:center">
+        {{#each score}}
+        <tr>
+          <td>{{label}}:</td>
+          <td>{{values.0.value}} {{unit}}</td>
+        </tr>
+        {{/each}}
+      </table>
+      <a href='#' class='more-info' data-id='{{house_id}}' style='display:block;text-align:center;margin:auto'>more</a>
+    </div>
+    {{/each}}
+
+    <div class='columns' />
+  </script>
+
+  <script>
+    $(document).foundation();
+  </script>

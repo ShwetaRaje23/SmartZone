@@ -33,7 +33,7 @@
 
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke: #000;
   stroke-width: 1.5px;
 }
 
@@ -44,7 +44,7 @@ body{
 
 
 body {
-  background: #F0F0F3;
+  background: #51264a;
 }
 .login-box {
   background: #fff;

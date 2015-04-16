@@ -18,19 +18,21 @@
   <script src="js/circles.min.js"></script>
   <script src="js/d3.min.js"></script>
   <script src="js/custom.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 
   <link media="all" type="text/css" rel="stylesheet" href="css/foundation.css">
   <link media="all" type="text/css" rel="stylesheet" href="css/custom.css">
 </head>
 
 
-<body>
+<body ng-app="smartzone">
+  <div ng-controller="MainCtrl"> 
   <div class='large'></div>
   <div class="sticky">
     <nav class="top-bar sticky" data-topbar role="navigation" data-options=>
       <ul class="title-area">
         <li class="name">
-          <h1>
+
             <a href="/">
               <img src="img/d.png" style="width:30px;height:30px;margin-top:-2px;display:inline-block" />
               <span style='color:#51264a !important;margin-top:50px;font-weight:700'>SmartZone</span>
@@ -57,6 +59,7 @@
 
 
 <div class='content row' id='content' style='background:#fff;min-height:600px;'>
+
   <div class='row'>
   </div>
 </div>
@@ -66,14 +69,14 @@
 
 <div id="settings-modal" class="reveal-modal tiny" data-reveal>
 </div>
-
+</div>
 </body>
 </html>
 
 
-<script id="person-details-template" type="text/x-handlebars-template">
-  <div class="columns large-12">
-
+<script id="person-details-template" type="text/x-handlebars-template" >
+  <div class="columns large-12"  >
+  
     <h2>{{person_name}}</h2>
     <h5> Suggested Premium: $150 - $200 </h5>
     <div class='row'>
@@ -156,4 +159,14 @@
 
   <script>
     $(document).foundation();
+  </script>
+  <script type="text/javascript">
+    var app = angular.module( 'smartzone', [] );
+    app.config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+    });
+    app.controller( 'MainCtrl', function( $scope ) {
+  // we control our app from here
+    });
   </script>

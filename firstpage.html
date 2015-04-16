@@ -41,22 +41,38 @@
 </nav>
 <br />
 
-<div class="large-3 large-centered columns">
+
+<div class="large-4 large-centered columns">
 <h3>Lookup a person: </h3>
 <form id="demo-2">
-	<input type="search" placeholder="Search">
+  <input type="search" placeholder="Search" ng-model='search' ng-change='peopleSearch'>
 </form>
 </div>
 
 
-<div class="large-3 large-centered columns">
+<div class="large-4 large-centered columns">
+<ul class="nav-bar vertical" ng-repeat="person in showPeople">
+
+  <li class="has-flyout">
+    <a href="#">{[{person}]}</a>
+    </li>
+</ul>
+</div>
+
+
+<div class="large-4 large-centered columns" ng-show='peopleShow'>
+
+</div>
+<div class="large-4 large-centered columns" ng-show='!peopleShow'>
 <label> Today's Tasks: </label>
 </br>
 <ul class="nav-bar vertical" ng-repeat="task in tasks">
-<button ng-click="delete($index)">Delete</button>
 
   <li class="has-flyout">
-    <a href="#">{[{task}]}</a></li>
+    <a href="#">{[{task}]}</a>
+    <button ng-click="delete($index)" style="display:inline" class='tiny'>Delete</button>
+
+    </li>
 </ul>
 <input type="text" ng-model="taskname"/>
 <button ng-click="maketask()">Add Task</button>
@@ -77,21 +93,29 @@
         $interpolateProvider.endSymbol('}]}');
     });
     app.controller( 'MainCtrl', function( $scope ) {
+      $scope.peopleShow=false;
       $scope.tasks=['Request a new client in Westshire',"Visit Mr. Smith at 3 a.m","Adjust Ms. Kasey's home premium","Meet with Mr Max"];
-
+      $scope.people=['Mr. Smith',"Ms. Casey","Mrs. Waters","Ms. Raje","Mr. Frazer"];
+      $scope.showPeople=[];
       $scope.maketask=function(){
 
         $scope.tasks.push($scope.taskname);
         $scope.taskname = "";
       }
 
+      $scope.peopleSearch=function(){
+        $scope.showPeople=[];
+        for(var i=0;i<$scope.people.length;i++)
+          if($scope.people[i].contains($scope.search))
+            $scope.showPeople.push($scope.people[i]);
+
+      }
       $scope.delete = function ( idx ) {
         var task_to_delete = $scope.tasks[idx];
+          $scope.tasks.splice(idx, 1);
+      }
+   
 
-      API.DeletePerson({ id: task_to_delete.id }, function (success) {
-      $scope.tasks.splice(idx, 1);
-  });
-};
   // we control our app from hereAdjust Ms. Kasey's home premium
     });
   </script>

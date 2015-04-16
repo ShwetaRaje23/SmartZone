@@ -12,99 +12,72 @@
    <script src="js/foundation.min.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 
-      <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,300italic,400,100' rel='stylesheet' type='text/css'>
-  <link rel="shortcut icon" href="<?php echo asset('img/icon.ico');?>">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-  <script type='text/javascript' src='js/handlebars.js' ></script>
-  <script src="js/foundation.min.js"></script>
-  <script src="js/foundation/foundation.slider.js"></script>
-  <script src="js/circles.min.js"></script>
-  <script src="js/d3.min.js"></script>
-  <script src="js/custom.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-
-  <link media="all" type="text/css" rel="stylesheet" href="css/foundation.css">
-  <link media="all" type="text/css" rel="stylesheet" href="css/custom.css">
-
   </head>
-  <body ng-app='smartzone'>
+  <body ng-app='smartzone' style="background:#51264a">
 <div ng-controller='MainCtrl'>
-<body style="min-height:100%;background:#51264a">
-<div class='large'></div>
-<div class="sticky">
-  <nav class="top-bar sticky" data-topbar role="navigation" data-options=>
-    <ul class="title-area">
-      <li class="name">
-        <h1>
-          <a href="/">
-            <img src="img/d.png" style="width:30px;height:30px;margin-top:-2px;display:inline-block" />
-            <span style='color:#51264a !important;margin-top:50px;font-weight:700'>SmartZone</span>
-          </a>
-        </h1>
-       </li>
-       <li class="toggle-topbar notification-menu-item notificaition-mobile"></li>
-       <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-     </ul>
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+
+      <h1><a href="#"><img src="img/d.png" style="width:30px;height:30px;margin-top:-2px;display:inline-block" />SmartZone</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
 
   <section class="top-bar-section">
     <!-- Right Nav Section -->
-
     <ul class="right">
-      <li><a href="#" data-reveal-id="myModal" id='settingsbutton'><img src="img/gear.png" style="width:20px;height:20px;margin-top:10px;display:inline-block" /></a></li>
-  </ul>
+      <li class="has-dropdown">
+        <a href="#">Mr. Insurance Man</a>
+        <ul class="dropdown">      
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Logout</a></li>
+          
+        </ul>
+      </li>
+    </ul>
 
-    <!--<li class="notification-menu-item hide-for-small">
-    </li>-->
+  </section>
+</nav>
+<br />
 
-    </section>
-  </nav>
-</div><br />
 
-<div class='content row' id='content' style='background:#fff;min-height:800px'>
-<div class="large-4 large-centered columns">
+<div class="large-4 large-centered columns" style="background:#fff;padding:20px">
 <h3>Lookup a person: </h3>
 <form id="demo-2">
-  <input type="search" placeholder="Search" ng-model="search" ng-change="peopleSearch">
+  <input type="search" placeholder="Search" ng-model="search" ng-change="peopleSearch()">
 </form>
 </div>
 
 
-<div class="large-4 large-centered columns">
+<div class="large-4 large-centered columns"  style="background:#fff">
 <ul class="nav-bar vertical" ng-repeat="person in showPeople">
 
   <li class="has-flyout">
-    <a href="#">{[{person}]}</a>
+    <a href="index.html">{[{person}]}</a>
     </li>
 </ul>
 </div>
 
 
-<div class="large-4 large-centered columns" ng-show='peopleShow'>
+<div class="large-4 large-centered columns" ng-show='peopleShow'  style="background:#fff">
 
 </div>
-<div class="large-4 large-centered columns" ng-show='!peopleShow'/>
-<label> Today's Tasks: </label>
+<div class="large-4 large-centered columns" ng-show='!peopleShow'  style="background:#fff"/>
+<h2> Today's Tasks: </h2>
 </br>
 <ul class="nav-bar vertical" ng-repeat="task in tasks">
 
-  <li class="has-flyout">
-    <a href="index.html">{[{task}]}</a>
-    <input type="image" src="http://www.veryicon.com/icon/png/Business/Office%201/Delete.png" width="12" height="12" ng-click="delete($index)" style="display:inline" class='tiny'/>
+  <li class="has-flyout small-12 " style='border:1px solid #ddd;padding:10px;list-style:none' >
+    <a href="index2.html">{[{task}]}</a>
+    <button ng-click="delete($index)" style="display:inline;float:right" class='tiny'>Done</button>
 
     </li>
 </ul>
 <input type="text" ng-model="taskname"/>
-<button ng-click="maketask()">Add Task</button>
+<button ng-click="maketask()" class='tiny'>Add Task</button>
 
-<a href="index2.html">
-<button>Next</button>
-</a>
-
-</div>
 
 </div>
 </div>
@@ -123,7 +96,7 @@
     app.controller( 'MainCtrl', function( $scope ) {
       $scope.peopleShow=false;
       $scope.tasks=['Request a new client in Westshire',"Visit Mr. Smith at 3 a.m","Adjust Ms. Kasey's home premium","Meet with Mr Max"];
-      $scope.people=['Mr. Smith',"Ms. Casey","Mrs. Waters","Ms. Raje","Mr. Frazer"];
+      $scope.people=['Mr. Smith',"Ms. Casey","Mrs. Waters","Ms. Raje","Mr. Frazer","Ms. Shanu","Mr. Falcon"];
       $scope.showPeople=[];
       $scope.maketask=function(){
 
@@ -132,15 +105,17 @@
       }
 
       $scope.peopleSearch=function(){
+        $scope.showPeople=[];
         if($scope.search == '')
           $scope.peopleShow = false;
           else{
             $scope.peopleShow = true;
-        $scope.showPeople=[];
+            $scope.showPeople=[];
         for(var i=0;i<$scope.people.length;i++)
-          if($scope.people[i].contains($scope.search))
+          if($scope.people[i].toLowerCase().indexOf($scope.search.toLowerCase())>-1)
             $scope.showPeople.push($scope.people[i]);
         }
+        console.log($scope.showPeople)
 
       }
       $scope.delete = function ( idx ) {

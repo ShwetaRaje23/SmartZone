@@ -53,11 +53,14 @@
 <label> Today's Tasks: </label>
 </br>
 <ul class="nav-bar vertical" ng-repeat="task in tasks">
+<button ng-click="delete($index)">Delete</button>
+
   <li class="has-flyout">
     <a href="#">{[{task}]}</a></li>
 </ul>
-<input type="text" />
+<input type="text" ng-model="taskname"/>
 <button ng-click="maketask()">Add Task</button>
+
 
 </div>
 </div>
@@ -74,11 +77,21 @@
         $interpolateProvider.endSymbol('}]}');
     });
     app.controller( 'MainCtrl', function( $scope ) {
-      $scope.tasks=['Request a new client in Westshire',"Visit Mr. Smith at 3 a.m","Adjust Ms. Kasey's home premium","Meet with Mr James"];
+      $scope.tasks=['Request a new client in Westshire',"Visit Mr. Smith at 3 a.m","Adjust Ms. Kasey's home premium","Meet with Mr Max"];
 
       $scope.maketask=function(){
-        $scope.tasks.push()
+
+        $scope.tasks.push($scope.taskname);
+        $scope.taskname = "";
       }
+
+      $scope.delete = function ( idx ) {
+        var task_to_delete = $scope.tasks[idx];
+
+      API.DeletePerson({ id: task_to_delete.id }, function (success) {
+      $scope.tasks.splice(idx, 1);
+  });
+};
   // we control our app from hereAdjust Ms. Kasey's home premium
     });
   </script>

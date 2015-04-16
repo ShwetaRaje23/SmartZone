@@ -45,7 +45,7 @@
 <div class="large-4 large-centered columns">
 <h3>Lookup a person: </h3>
 <form id="demo-2">
-  <input type="search" placeholder="Search" ng-model='search' ng-change='peopleSearch'>
+  <input type="search" placeholder="Search" ng-model="search" ng-change="peopleSearch">
 </form>
 </div>
 
@@ -63,7 +63,7 @@
 <div class="large-4 large-centered columns" ng-show='peopleShow'>
 
 </div>
-<div class="large-4 large-centered columns" ng-show='!peopleShow'>
+<div class="large-4 large-centered columns" ng-show='!peopleShow'/>
 <label> Today's Tasks: </label>
 </br>
 <ul class="nav-bar vertical" ng-repeat="task in tasks">
@@ -104,10 +104,15 @@
       }
 
       $scope.peopleSearch=function(){
+        if($scope.search == '')
+          $scope.peopleShow = false;
+          else{
+            $scope.peopleShow = true;
         $scope.showPeople=[];
         for(var i=0;i<$scope.people.length;i++)
           if($scope.people[i].contains($scope.search))
             $scope.showPeople.push($scope.people[i]);
+        }
 
       }
       $scope.delete = function ( idx ) {
